@@ -411,6 +411,8 @@ img {
     padding: 0.95rem 1.4rem;
     border-radius: 999px;
     border: 1px solid rgba(255, 255, 255, 0.16);
+    cursor: pointer;
+    font: inherit;
     transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease, color 180ms ease;
 }
 
@@ -832,6 +834,273 @@ img {
     font-size: 0.94rem;
 }
 
+body.modal-open {
+    overflow: hidden;
+}
+
+.booking-modal[hidden] {
+    display: none;
+}
+
+.booking-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+}
+
+.booking-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(4, 4, 4, 0.78);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+}
+
+.booking-modal__dialog {
+    position: relative;
+    z-index: 1;
+    width: min(1200px, calc(100vw - 1.5rem));
+    height: min(92vh, 920px);
+    margin: 4vh auto;
+    padding: clamp(1rem, 2vw, 1.5rem);
+    border-radius: 2rem;
+    overflow: hidden;
+    border: 1px solid rgba(223, 205, 123, 0.18);
+    background:
+        radial-gradient(circle at top right, rgba(223, 205, 123, 0.12), transparent 28%),
+        linear-gradient(180deg, rgba(11, 11, 11, 0.98), rgba(5, 5, 5, 0.98));
+    box-shadow: 0 32px 120px rgba(0, 0, 0, 0.5);
+}
+
+.booking-modal__content {
+    height: 100%;
+    overflow-y: auto;
+    padding: clamp(1.2rem, 3vw, 2rem);
+    border-radius: 1.4rem;
+    background:
+        linear-gradient(180deg, rgba(13, 13, 13, 0.9), rgba(8, 8, 8, 0.96)),
+        linear-gradient(145deg, rgba(223, 205, 123, 0.06), transparent 36%);
+}
+
+.booking-modal__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 2;
+    min-width: 7rem;
+    min-height: 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    background: rgba(9, 9, 9, 0.74);
+    color: var(--text);
+    cursor: pointer;
+    font: inherit;
+}
+
+.booking-modal__close:hover,
+.booking-modal__close:focus-visible {
+    background: rgba(223, 205, 123, 0.12);
+    border-color: rgba(223, 205, 123, 0.35);
+}
+
+.booking-modal__topbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) auto;
+    gap: 1rem;
+    align-items: start;
+}
+
+.booking-modal__topbar h2 {
+    margin-top: 0.65rem;
+    font-size: clamp(2.3rem, 5vw, 4.6rem);
+    line-height: 0.96;
+}
+
+.booking-modal__lead {
+    max-width: 44rem;
+    margin-top: 1rem;
+    color: rgba(247, 242, 232, 0.88);
+    line-height: 1.9;
+}
+
+.booking-socials {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+.booking-social {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    min-height: 3.3rem;
+    padding: 0.8rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(223, 205, 123, 0.18);
+    background: rgba(12, 12, 12, 0.74);
+    color: var(--text);
+}
+
+.booking-social svg {
+    width: 1.15rem;
+    height: 1.15rem;
+    fill: currentColor;
+}
+
+.booking-modal__artist-panel {
+    margin-top: 1.5rem;
+    padding: 1.4rem;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(223, 205, 123, 0.18);
+    background:
+        linear-gradient(145deg, rgba(223, 205, 123, 0.08), transparent 42%),
+        rgba(14, 14, 14, 0.88);
+}
+
+.booking-modal__artist-kicker {
+    color: var(--gold-soft);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+
+.booking-modal__artist-panel strong {
+    display: block;
+    margin-top: 0.5rem;
+    font-family: "Antonio", sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.booking-modal__artist-panel p {
+    margin-top: 0.8rem;
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.booking-options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.booking-option-card {
+    position: relative;
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(180deg, rgba(18, 18, 18, 0.96), rgba(10, 10, 10, 0.98));
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.booking-option-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(145deg, rgba(223, 205, 123, 0.08), transparent 40%);
+    pointer-events: none;
+}
+
+.booking-option-card > * {
+    position: relative;
+}
+
+.booking-option-card-featured {
+    background:
+        linear-gradient(180deg, rgba(29, 24, 13, 0.96), rgba(12, 12, 12, 0.98)),
+        linear-gradient(145deg, rgba(223, 205, 123, 0.12), transparent 40%);
+}
+
+.booking-option-card h3 {
+    margin-top: 0.8rem;
+    font-size: 1.55rem;
+}
+
+.booking-option-card p {
+    margin-top: 0.85rem;
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.booking-option-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.9rem;
+}
+
+.booking-option-meta span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.4rem;
+    padding: 0.5rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(223, 205, 123, 0.1);
+    color: #f1e0ae;
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.booking-option-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    align-items: center;
+    margin-top: 1.25rem;
+}
+
+.booking-upload {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3.6rem;
+    padding: 0.95rem 1.2rem;
+    border-radius: 999px;
+    border: 1px dashed rgba(223, 205, 123, 0.36);
+    background: rgba(223, 205, 123, 0.08);
+    color: var(--text);
+    cursor: pointer;
+}
+
+.booking-upload input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.booking-send-button[disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+    box-shadow: none;
+}
+
+.booking-option-card.has-file {
+    border-color: rgba(223, 205, 123, 0.36);
+}
+
+.booking-file-name {
+    min-height: 1.6rem;
+    margin-top: 0.8rem;
+    font-size: 0.92rem;
+}
+
+.booking-modal__note {
+    margin-top: 1.4rem;
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.booking-modal__note a {
+    color: var(--gold-soft);
+}
+
 .tattoo-page .subpage-hero {
     --subpage-image: url("Images/Yanky tattoo1.png");
 }
@@ -862,7 +1131,9 @@ img {
     .subpage-callout,
     .detail-grid,
     .contact-detail-grid,
-    .shop-detail-grid {
+    .shop-detail-grid,
+    .booking-options-grid,
+    .booking-modal__topbar {
         grid-template-columns: 1fr;
     }
 
@@ -914,6 +1185,10 @@ img {
         width: min(1180px, calc(100vw - 1rem));
     }
 
+    .booking-modal__dialog {
+        width: min(1200px, calc(100vw - 1rem));
+    }
+
     .brand {
         width: 100%;
     }
@@ -957,6 +1232,36 @@ img {
     }
 
     .subpage-actions .button {
+        width: 100%;
+    }
+
+    .booking-modal__dialog {
+        height: 100vh;
+        margin: 0;
+        border-radius: 0;
+        width: 100vw;
+        padding: 0;
+    }
+
+    .booking-modal__content {
+        border-radius: 0;
+        padding: 4.75rem 1rem 1.5rem;
+    }
+
+    .booking-modal__close {
+        top: 0.75rem;
+        right: 0.75rem;
+    }
+
+    .booking-option-actions,
+    .booking-socials {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .booking-upload,
+    .booking-social,
+    .booking-send-button {
         width: 100%;
     }
 
