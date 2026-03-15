@@ -43,7 +43,7 @@ if (bookingModal) {
             `Duration: ${optionDuration}`,
             `Price: ${optionPrice}`,
             `Reference image: ${fileName || "No file selected yet"}`,
-            "I will attach the selected image in this WhatsApp chat."
+            "Reference image selected from the Skin Stories site."
         ].join("\n");
     }
 
@@ -51,6 +51,126 @@ if (bookingModal) {
         const message = buildMessage(card, fileName);
         const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
         window.open(url, "_blank", "noopener");
+    }
+
+    function readFileAsDataUrl(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = () => reject(new Error("Could not read the uploaded image."));
+            reader.readAsDataURL(file);
+        });
+    }
+
+    function loadImage(dataUrl) {
+        return new Promise((resolve, reject) => {
+            const image = new Image();
+
+            image.onload = () => resolve(image);
+            image.onerror = () => reject(new Error("Could not prepare the uploaded image."));
+            image.src = dataUrl;
+        });
+    }
+
+    function canvasToBlob(canvas) {
+        return new Promise((resolve, reject) => {
+            canvas.toBlob((blob) => {
+                if (blob) {
+                    resolve(blob);
+                    return;
+                }
+
+                reject(new Error("Could not create a clipboard image."));
+            }, "image/png");
+        });
+    }
+
+    async function copyImageToClipboard(file) {
+        if (!navigator.clipboard || typeof navigator.clipboard.write !== "function" || typeof ClipboardItem === "undefined") {
+            return false;
+        }
+
+        const dataUrl = await readFileAsDataUrl(file);
+        const image = await loadImage(dataUrl);
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+
+        canvas.width = image.naturalWidth;
+        canvas.height = image.naturalHeight;
+        context.drawImage(image, 0, 0);
+
+        const pngBlob = await canvasToBlob(canvas);
+        await navigator.clipboard.write([
+            new ClipboardItem({
+                "image/png": pngBlob
+            })
+        ]);
+
+        return true;
+    }
+
+    async function shareViaSystem(card, file) {
+        const message = buildMessage(card, file.name);
+
+        if (!navigator.share || !navigator.canShare) {
+            return false;
+        }
+
+        const sharePayload = {
+            title: "Skin Stories Tattoo Booking",
+            text: message,
+            files: [file]
+        };
+
+        if (!navigator.canShare(sharePayload)) {
+            return false;
+        }
+
+        await navigator.share(sharePayload);
+        return true;
+    }
+
+    async function sendTattooBooking(card, input, fileNameField, sendButton) {
+        const file = input.files && input.files[0];
+
+        if (!file) {
+            return;
+        }
+
+        sendButton.disabled = true;
+        fileNameField.textContent = `Selected image: ${file.name}. Preparing WhatsApp...`;
+
+        try {
+            const shared = await shareViaSystem(card, file);
+
+            if (shared) {
+                fileNameField.textContent = `Selected image: ${file.name}. Shared through your device share sheet.`;
+                sendButton.disabled = false;
+                return;
+            }
+        } catch (error) {
+            if (error && error.name === "AbortError") {
+                fileNameField.textContent = `Selected image: ${file.name}. Share canceled.`;
+                sendButton.disabled = false;
+                return;
+            }
+        }
+
+        try {
+            const copied = await copyImageToClipboard(file);
+
+            if (copied) {
+                fileNameField.textContent = `Selected image: ${file.name}. Image copied. WhatsApp is opening with the booking text ready.`;
+            } else {
+                fileNameField.textContent = `Selected image: ${file.name}. WhatsApp is opening with the booking text ready.`;
+            }
+        } catch (error) {
+            fileNameField.textContent = `Selected image: ${file.name}. WhatsApp is opening with the booking text ready.`;
+        }
+
+        openWhatsApp(card, file.name);
+        sendButton.disabled = false;
     }
 
     openButtons.forEach((button) => {
@@ -81,7 +201,7 @@ if (bookingModal) {
         const fileNameField = card.querySelector("[data-file-name]");
         const sendButton = card.querySelector("[data-send-whatsapp]");
 
-        input.addEventListener("change", () => {
+        input.addEventListener("change", async () => {
             const file = input.files && input.files[0];
 
             if (!file) {
@@ -94,17 +214,11 @@ if (bookingModal) {
             fileNameField.textContent = `Selected image: ${file.name}`;
             sendButton.disabled = false;
             card.classList.add("has-file");
-            openWhatsApp(card, file.name);
+            await sendTattooBooking(card, input, fileNameField, sendButton);
         });
 
-        sendButton.addEventListener("click", () => {
-            const file = input.files && input.files[0];
-
-            if (!file) {
-                return;
-            }
-
-            openWhatsApp(card, file.name);
+        sendButton.addEventListener("click", async () => {
+            await sendTattooBooking(card, input, fileNameField, sendButton);
         });
     });
 
