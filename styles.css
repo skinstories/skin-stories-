@@ -53,7 +53,6 @@ body::before {
 }
 
 a {
-            padding: 1.25rem;
     color: inherit;
     text-decoration: none;
 }
@@ -64,21 +63,6 @@ h2,
 h3,
 ul {
     margin: 0;
-.cta-feature-piercing {
-    min-height: 13.8rem;
-    background:
-        linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.8)),
-        linear-gradient(135deg, rgba(223, 205, 123, 0.1), transparent 42%),
-        url("Images/Piercing.jpg") center/cover no-repeat;
-}
-
-.cta-feature-music {
-    min-height: 13.8rem;
-    background:
-        linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.82)),
-        linear-gradient(135deg, rgba(223, 205, 123, 0.12), transparent 46%),
-        url("Images/Music.jpg") center/cover no-repeat;
-}
 }
 
 img {
@@ -642,10 +626,244 @@ img {
     font-size: 0.94rem;
 }
 
+.inner-page .page-shell {
+    padding-bottom: 3rem;
+}
+
+.subpage-main,
+.subpage-footer {
+    width: var(--content-width);
+    margin: 0 auto;
+}
+
+.subpage-main {
+    padding-bottom: 2rem;
+}
+
+.subpage-hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
+    gap: 1.5rem;
+    min-height: 31rem;
+    margin-top: 1rem;
+    padding: clamp(1.2rem, 3vw, 2rem);
+    border-radius: 2rem;
+    overflow: hidden;
+    background:
+        linear-gradient(90deg, rgba(5, 5, 5, 0.9) 0%, rgba(5, 5, 5, 0.56) 42%, rgba(5, 5, 5, 0.82) 100%),
+        var(--subpage-image, url("Images/skin stories.jpg")) center/cover no-repeat;
+    box-shadow: var(--shadow);
+}
+
+.subpage-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at top right, rgba(223, 205, 123, 0.2), transparent 30%),
+        linear-gradient(180deg, rgba(223, 205, 123, 0.05), transparent 34%),
+        linear-gradient(0deg, rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.22));
+}
+
+.subpage-hero-copy,
+.subpage-hero-side {
+    position: relative;
+    z-index: 1;
+}
+
+.subpage-hero-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 1.2rem;
+}
+
+.subpage-hero-side {
+    display: flex;
+    align-items: flex-end;
+}
+
+.subpage-hero h1 {
+    font-size: clamp(3rem, 7vw, 5.8rem);
+    line-height: 0.94;
+}
+
+.subpage-lead {
+    max-width: 38rem;
+    color: rgba(247, 242, 232, 0.9);
+    font-size: 1.06rem;
+    line-height: 1.85;
+}
+
+.subpage-stat {
+    width: min(24rem, 100%);
+    padding: 1.35rem;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(223, 205, 123, 0.22);
+    background: rgba(10, 10, 10, 0.72);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--shadow);
+}
+
+.subpage-stat-label {
+    display: block;
+    color: var(--gold-soft);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+
+.subpage-stat strong {
+    display: block;
+    margin-top: 0.5rem;
+    font-family: "Antonio", sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.subpage-stat p {
+    margin-top: 0.6rem;
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.subpage-section {
+    padding-top: 4rem;
+}
+
+.subpage-grid,
+.detail-grid,
+.contact-detail-grid,
+.shop-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.detail-grid-two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.detail-card,
+.contact-detail-card {
+    position: relative;
+    padding: 1.6rem;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(180deg, rgba(18, 18, 18, 0.94), rgba(10, 10, 10, 0.98));
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.detail-card::before,
+.contact-detail-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(145deg, rgba(223, 205, 123, 0.08), transparent 36%);
+    pointer-events: none;
+}
+
+.detail-card > *,
+.contact-detail-card > * {
+    position: relative;
+}
+
+.detail-card h3,
+.contact-detail-card h3 {
+    font-size: 1.45rem;
+}
+
+.detail-card p,
+.contact-detail-card p,
+.contact-detail-card li {
+    margin-top: 0.8rem;
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.detail-list,
+.contact-detail-card ul {
+    margin-top: 1rem;
+    padding-left: 1.1rem;
+    color: var(--muted);
+    display: grid;
+    gap: 0.7rem;
+}
+
+.subpage-callout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(16rem, 0.8fr);
+    gap: 1rem;
+    margin-top: 2rem;
+    padding: clamp(1.4rem, 3vw, 2rem);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(223, 205, 123, 0.18);
+    background:
+        linear-gradient(145deg, rgba(223, 205, 123, 0.08), transparent 38%),
+        linear-gradient(180deg, rgba(16, 16, 16, 0.96), rgba(8, 8, 8, 0.98));
+    box-shadow: var(--shadow);
+}
+
+.subpage-callout p {
+    color: var(--muted);
+    line-height: 1.85;
+}
+
+.subpage-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.subpage-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 2rem 0 3rem;
+    color: rgba(204, 194, 174, 0.82);
+    font-size: 0.94rem;
+}
+
+.tattoo-page .subpage-hero {
+    --subpage-image: url("Images/Yanky tattoo1.png");
+}
+
+.piercing-page .subpage-hero {
+    --subpage-image: url("Images/Piercing.jpg");
+}
+
+.music-page .subpage-hero {
+    --subpage-image: url("Images/Music.jpg");
+}
+
+.shop-page .subpage-hero {
+    --subpage-image: url("Images/skin stories.jpg");
+}
+
+.contact-page .subpage-hero {
+    --subpage-image: url("Images/skin stories 2.jpg");
+}
+
 @media (max-width: 1080px) {
     .site-header {
         width: min(1180px, calc(100vw - 1rem));
         border-radius: 1.4rem;
+    }
+
+    .subpage-hero,
+    .subpage-callout,
+    .detail-grid,
+    .contact-detail-grid,
+    .shop-detail-grid {
+        grid-template-columns: 1fr;
     }
 
     .split-heading,
@@ -691,6 +909,11 @@ img {
         justify-content: flex-start;
     }
 
+    .subpage-main,
+    .subpage-footer {
+        width: min(1180px, calc(100vw - 1rem));
+    }
+
     .brand {
         width: 100%;
     }
@@ -723,11 +946,26 @@ img {
         min-height: 17rem;
     }
 
+    .subpage-hero {
+        min-height: 0;
+        padding: 5rem 1rem 1.2rem;
+        border-radius: 1.5rem;
+    }
+
+    .subpage-actions {
+        justify-content: stretch;
+    }
+
+    .subpage-actions .button {
+        width: 100%;
+    }
+
     .cta-feature-action {
         align-self: stretch;
     }
 
-    .site-footer {
+    .site-footer,
+    .subpage-footer {
         flex-direction: column;
         padding-bottom: 2.5rem;
     }
