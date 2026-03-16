@@ -128,7 +128,7 @@
                             <p class="section-tag">Tattoo booking</p>
                             <h2 id="booking-title">Book with <span data-booking-artist>Skin Stories Tattoo Team</span></h2>
                             <p class="booking-modal__lead">
-                                Choose the tattoo size that matches your session, upload your reference image, and the site will open a direct WhatsApp chat for <span data-booking-whatsapp-number>+250 789 831 320</span> with the booking details already filled in.
+                                Choose a tattoo option below and send a direct WhatsApp message to <span data-booking-whatsapp-number>+250 789 831 320</span> with the session details already filled in.
                             </p>
                         </div>
                         <div class="booking-socials" aria-label="Tattoo booking contact shortcuts">
@@ -150,85 +150,64 @@
                     <div class="booking-modal__artist-panel">
                         <p class="booking-modal__artist-kicker">Featured artist</p>
                         <strong data-booking-artist-secondary>Skin Stories Tattoo Team</strong>
-                        <p>The upload action now always targets the Skin Stories WhatsApp number directly. The site also tries to copy the uploaded image first so it is ready to paste into the same chat.</p>
+                        <p>Pick the tattoo size, send the message, and continue the conversation directly in WhatsApp or Instagram with the selected artist.</p>
                     </div>
 
-                    <div class="booking-options-grid">
-                        <article class="booking-option-card" data-booking-option data-option-name="Small Tattoo" data-option-duration="1 hour" data-option-price="50,000 RWF" data-option-code="01">
-                            <span class="service-index">01</span>
-                            <h3>Small Tattoo</h3>
-                            <div class="booking-option-meta">
-                                <span>1hr</span>
-                                <span>50k RWF</span>
-                            </div>
-                            <p>Best for compact linework, symbols, initials, and subtle detail pieces.</p>
-                            <div class="booking-option-actions">
-                                <label class="booking-upload" for="small-tattoo-upload">
-                                    <input id="small-tattoo-upload" type="file" accept="image/*" data-upload-input>
-                                    <span>Upload image</span>
-                                </label>
-                                <button class="button button-primary booking-send-button" type="button" data-send-whatsapp disabled>Send to WhatsApp</button>
-                            </div>
-                            <p class="booking-file-name" data-file-name>No image selected yet.</p>
-                        </article>
-
-                        <article class="booking-option-card" data-booking-option data-option-name="Medium Tattoo" data-option-duration="2 hours" data-option-price="100,000 RWF" data-option-code="02">
-                            <span class="service-index">02</span>
-                            <h3>Medium Tattoo</h3>
-                            <div class="booking-option-meta">
-                                <span>2h</span>
-                                <span>100k RWF</span>
-                            </div>
-                            <p>Good for fuller compositions, layered detail, and stronger visual presence.</p>
-                            <div class="booking-option-actions">
-                                <label class="booking-upload" for="medium-tattoo-upload">
-                                    <input id="medium-tattoo-upload" type="file" accept="image/*" data-upload-input>
-                                    <span>Upload image</span>
-                                </label>
-                                <button class="button button-primary booking-send-button" type="button" data-send-whatsapp disabled>Send to WhatsApp</button>
-                            </div>
-                            <p class="booking-file-name" data-file-name>No image selected yet.</p>
-                        </article>
-
-                        <article class="booking-option-card" data-booking-option data-option-name="Large Tattoo" data-option-duration="4 hours" data-option-price="150,000 RWF" data-option-code="03">
-                            <span class="service-index">03</span>
-                            <h3>Large Tattoo</h3>
-                            <div class="booking-option-meta">
-                                <span>4h</span>
-                                <span>150k RWF</span>
-                            </div>
-                            <p>Built for statement pieces, larger placements, and sessions that need more room to breathe.</p>
-                            <div class="booking-option-actions">
-                                <label class="booking-upload" for="large-tattoo-upload">
-                                    <input id="large-tattoo-upload" type="file" accept="image/*" data-upload-input>
-                                    <span>Upload image</span>
-                                </label>
-                                <button class="button button-primary booking-send-button" type="button" data-send-whatsapp disabled>Send to WhatsApp</button>
-                            </div>
-                            <p class="booking-file-name" data-file-name>No image selected yet.</p>
-                        </article>
-
-                        <article class="booking-option-card booking-option-card-featured" data-booking-option data-option-name="Unique Tattoo Offer" data-option-duration="Custom timing" data-option-price="Custom quote" data-option-code="04">
-                            <span class="service-index">04</span>
-                            <h3>Unique Tattoo Offer</h3>
-                            <div class="booking-option-meta">
-                                <span>Custom</span>
-                                <span>Quote on review</span>
-                            </div>
-                            <p>For one-of-one concepts, larger storytelling pieces, or designs that need pricing after reference review.</p>
-                            <div class="booking-option-actions">
-                                <label class="booking-upload" for="unique-tattoo-upload">
-                                    <input id="unique-tattoo-upload" type="file" accept="image/*" data-upload-input>
-                                    <span>Upload image</span>
-                                </label>
-                                <button class="button button-primary booking-send-button" type="button" data-send-whatsapp disabled>Send to WhatsApp</button>
-                            </div>
-                            <p class="booking-file-name" data-file-name>No image selected yet.</p>
-                        </article>
+                    <div class="booking-options-panel">
+                        <div class="booking-options-panel-heading">
+                            <p class="booking-modal__artist-kicker">Tattoo options</p>
+                            <p class="booking-options-summary">Minimal booking list with direct message actions.</p>
+                        </div>
+                        <div class="booking-option-list">
+                            <article class="booking-option-row" data-booking-option data-option-name="Small Tattoo" data-option-duration="1 hour" data-option-price="50,000 RWF" data-option-code="01">
+                                <div class="booking-option-row-copy">
+                                    <span class="service-index">01</span>
+                                    <h3>Small Tattoo</h3>
+                                </div>
+                                <div class="booking-option-row-meta">
+                                    <span>1hr</span>
+                                    <span>50k RWF</span>
+                                </div>
+                                <button class="button button-primary booking-send-button" type="button" data-send-whatsapp>Send Message</button>
+                            </article>
+                            <article class="booking-option-row" data-booking-option data-option-name="Medium Tattoo" data-option-duration="2 hours" data-option-price="100,000 RWF" data-option-code="02">
+                                <div class="booking-option-row-copy">
+                                    <span class="service-index">02</span>
+                                    <h3>Medium Tattoo</h3>
+                                </div>
+                                <div class="booking-option-row-meta">
+                                    <span>2h</span>
+                                    <span>100k RWF</span>
+                                </div>
+                                <button class="button button-primary booking-send-button" type="button" data-send-whatsapp>Send Message</button>
+                            </article>
+                            <article class="booking-option-row" data-booking-option data-option-name="Large Tattoo" data-option-duration="4 hours" data-option-price="150,000 RWF" data-option-code="03">
+                                <div class="booking-option-row-copy">
+                                    <span class="service-index">03</span>
+                                    <h3>Large Tattoo</h3>
+                                </div>
+                                <div class="booking-option-row-meta">
+                                    <span>4h</span>
+                                    <span>150k RWF</span>
+                                </div>
+                                <button class="button button-primary booking-send-button" type="button" data-send-whatsapp>Send Message</button>
+                            </article>
+                            <article class="booking-option-row booking-option-row-featured" data-booking-option data-option-name="Unique Tattoo Offer" data-option-duration="Custom timing" data-option-price="Custom quote" data-option-code="04">
+                                <div class="booking-option-row-copy">
+                                    <span class="service-index">04</span>
+                                    <h3>Unique Tattoo Offer</h3>
+                                </div>
+                                <div class="booking-option-row-meta">
+                                    <span>Custom</span>
+                                    <span>Quote on review</span>
+                                </div>
+                                <button class="button button-primary booking-send-button" type="button" data-send-whatsapp>Send Message</button>
+                            </article>
+                        </div>
                     </div>
 
                     <p class="booking-modal__note">
-                        Selecting an image opens a direct WhatsApp chat for <a href="https://wa.me/250789831320" target="_blank" rel="noreferrer noopener" data-booking-whatsapp-link>+250 789 831 320</a> with the tattoo details already filled in. When the browser allows it, the uploaded image is copied first so it can be pasted into that same chat.
+                        Tap any send button to open a direct WhatsApp chat for <a href="https://wa.me/250789831320" target="_blank" rel="noreferrer noopener" data-booking-whatsapp-link>+250 789 831 320</a> with the selected tattoo option already filled in.
                     </p>
                 </div>
             </section>

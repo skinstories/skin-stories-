@@ -7,7 +7,7 @@ if (bookingModal) {
     const whatsappLinks = bookingModal.querySelectorAll("[data-booking-whatsapp-link]");
     const instagramLinks = bookingModal.querySelectorAll("[data-booking-instagram-link]");
     const whatsappNumberFields = bookingModal.querySelectorAll("[data-booking-whatsapp-number]");
-    const optionCards = bookingModal.querySelectorAll("[data-booking-option]");
+    const optionItems = bookingModal.querySelectorAll("[data-booking-option]");
     const params = new URLSearchParams(window.location.search);
     const defaultArtist = "Skin Stories Tattoo Team";
     const artistProfiles = {
@@ -70,7 +70,7 @@ if (bookingModal) {
         document.body.classList.remove("modal-open");
     }
 
-    function buildMessage(card, fileName) {
+    function buildMessage(card) {
         const optionName = card.dataset.optionName;
         const optionDuration = card.dataset.optionDuration;
         const optionPrice = card.dataset.optionPrice;
@@ -84,13 +84,12 @@ if (bookingModal) {
             `Tattoo type: ${optionName}`,
             `Duration: ${optionDuration}`,
             `Price: ${optionPrice}`,
-            `Reference image: ${fileName || "No file selected yet"}`,
-            "Reference image selected from the Skin Stories site."
+            "Please confirm availability and next booking steps."
         ].join("\n");
     }
 
-    function openWhatsApp(card, fileName) {
-        const message = buildMessage(card, fileName);
+    function openWhatsApp(card) {
+        const message = buildMessage(card);
         const encodedMessage = encodeURIComponent(message);
         const appUrl = `whatsapp://send?phone=${activeProfile.whatsappNumber}&text=${encodedMessage}`;
         const webUrl = `https://wa.me/${activeProfile.whatsappNumber}?text=${encodedMessage}`;
@@ -109,89 +108,6 @@ if (bookingModal) {
         }
 
         window.open(webUrl, "_blank", "noopener");
-    }
-
-    function readFileAsDataUrl(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = () => reject(new Error("Could not read the uploaded image."));
-            reader.readAsDataURL(file);
-        });
-    }
-
-    function loadImage(dataUrl) {
-        return new Promise((resolve, reject) => {
-            const image = new Image();
-
-            image.onload = () => resolve(image);
-            image.onerror = () => reject(new Error("Could not prepare the uploaded image."));
-            image.src = dataUrl;
-        });
-    }
-
-    function canvasToBlob(canvas) {
-        return new Promise((resolve, reject) => {
-            canvas.toBlob((blob) => {
-                if (blob) {
-                    resolve(blob);
-                    return;
-                }
-
-                reject(new Error("Could not create a clipboard image."));
-            }, "image/png");
-        });
-    }
-
-    async function copyImageToClipboard(file) {
-        if (!navigator.clipboard || typeof navigator.clipboard.write !== "function" || typeof ClipboardItem === "undefined") {
-            return false;
-        }
-
-        const dataUrl = await readFileAsDataUrl(file);
-        const image = await loadImage(dataUrl);
-        const canvas = document.createElement("canvas");
-        const context = canvas.getContext("2d");
-
-        canvas.width = image.naturalWidth;
-        canvas.height = image.naturalHeight;
-        context.drawImage(image, 0, 0);
-
-        const pngBlob = await canvasToBlob(canvas);
-        await navigator.clipboard.write([
-            new ClipboardItem({
-                "image/png": pngBlob
-            })
-        ]);
-
-        return true;
-    }
-
-    async function sendTattooBooking(card, input, fileNameField, sendButton) {
-        const file = input.files && input.files[0];
-
-        if (!file) {
-            return;
-        }
-
-        sendButton.disabled = true;
-        fileNameField.textContent = `Selected image: ${file.name}. Preparing WhatsApp...`;
-
-        try {
-            const copied = await copyImageToClipboard(file);
-
-            if (copied) {
-                fileNameField.textContent = `Selected image: ${file.name}. Image copied. Opening WhatsApp for +250 789 831 320.`;
-            } else {
-                fileNameField.textContent = `Selected image: ${file.name}. Opening WhatsApp for +250 789 831 320.`;
-            }
-        } catch (error) {
-            fileNameField.textContent = `Selected image: ${file.name}. Opening WhatsApp for +250 789 831 320.`;
-        }
-
-        openWhatsApp(card, file.name);
-        sendButton.disabled = false;
     }
 
     openButtons.forEach((button) => {
@@ -217,29 +133,11 @@ if (bookingModal) {
         }
     });
 
-    optionCards.forEach((card) => {
-        const input = card.querySelector("[data-upload-input]");
-        const fileNameField = card.querySelector("[data-file-name]");
+    optionItems.forEach((card) => {
         const sendButton = card.querySelector("[data-send-whatsapp]");
 
-        input.addEventListener("change", async () => {
-            const file = input.files && input.files[0];
-
-            if (!file) {
-                fileNameField.textContent = "No image selected yet.";
-                sendButton.disabled = true;
-                card.classList.remove("has-file");
-                return;
-            }
-
-            fileNameField.textContent = `Selected image: ${file.name}`;
-            sendButton.disabled = false;
-            card.classList.add("has-file");
-            await sendTattooBooking(card, input, fileNameField, sendButton);
-        });
-
-        sendButton.addEventListener("click", async () => {
-            await sendTattooBooking(card, input, fileNameField, sendButton);
+        sendButton.addEventListener("click", () => {
+            openWhatsApp(card);
         });
     });
 
