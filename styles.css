@@ -264,26 +264,31 @@ img {
 
 .cta-group {
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: stretch;
     gap: 1rem;
     margin-top: 2rem;
     max-width: 84rem;
 }
 
-.cta-cluster {
+.hero-artist-card,
+.hero-service-panel,
+.hero-collective-card {
     position: relative;
-    padding: 1rem;
+    min-height: 18rem;
+    padding: 1.15rem;
     border-radius: 2rem;
-    border: 1px solid rgba(223, 205, 123, 0.18);
+    border: 1px solid rgba(223, 205, 123, 0.22);
     background:
-        linear-gradient(180deg, rgba(11, 11, 11, 0.82), rgba(6, 6, 6, 0.94)),
+        linear-gradient(180deg, rgba(11, 11, 11, 0.88), rgba(6, 6, 6, 0.96)),
         linear-gradient(145deg, rgba(223, 205, 123, 0.06), transparent 36%);
-    box-shadow: 0 26px 52px rgba(0, 0, 0, 0.34);
+    box-shadow: 0 26px 52px rgba(0, 0, 0, 0.38);
     overflow: hidden;
 }
 
-.cta-cluster::before {
+.hero-artist-card::before,
+.hero-service-panel::before,
+.hero-collective-card::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -293,43 +298,123 @@ img {
     pointer-events: none;
 }
 
-.cta-cluster-heading,
-.cta-cluster-grid {
+.hero-artist-card,
+.hero-collective-card {
+    display: grid;
+    align-content: start;
+    gap: 0.85rem;
+}
+
+.hero-artist-card {
+    background:
+        linear-gradient(90deg, rgba(6, 6, 6, 0.96) 0%, rgba(6, 6, 6, 0.82) 42%, rgba(6, 6, 6, 0.2) 100%),
+        var(--hero-artist-image) center/cover no-repeat;
+}
+
+.hero-artist-card-yanky {
+    --hero-artist-image: url("Images/Yanky tattoo1.png");
+}
+
+.hero-artist-card-hamza {
+    --hero-artist-image: url("Images/hamza tattoo.png");
+}
+
+.hero-card-kicker,
+.hero-card-mini-link,
+.hero-panel-kicker,
+.hero-panel-link,
+.hero-artist-card-title,
+.hero-collective-title,
+.hero-service-grid {
     position: relative;
     z-index: 1;
 }
 
-.cta-cluster-heading {
-    display: grid;
-    gap: 0.7rem;
-    padding: 0.35rem 0.35rem 1rem;
-}
-
-.cta-cluster-kicker {
-    color: var(--gold-soft);
+.hero-card-kicker,
+.hero-card-mini-link,
+.hero-panel-kicker,
+.hero-panel-link {
     font-size: 0.76rem;
     font-weight: 700;
     letter-spacing: 0.24em;
     text-transform: uppercase;
 }
 
-.cta-cluster-title {
-    max-width: 20ch;
+.hero-card-kicker,
+.hero-panel-kicker {
+    color: var(--gold-soft);
+}
+
+.hero-card-mini-link,
+.hero-panel-link {
+    color: rgba(247, 242, 232, 0.72);
+}
+
+.hero-card-mini-link {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+}
+
+.hero-artist-card-title,
+.hero-collective-title {
+    margin-top: 0.15rem;
+    max-width: 7ch;
     font-family: "Antonio", sans-serif;
-    font-size: clamp(1.8rem, 4vw, 3.25rem);
-    line-height: 0.98;
+    font-size: clamp(2.35rem, 5vw, 4.2rem);
+    line-height: 0.92;
     letter-spacing: 0.05em;
     text-transform: uppercase;
 }
 
-.cta-cluster-grid {
-    display: grid;
+.hero-collective-card {
+    background:
+        linear-gradient(90deg, rgba(7, 7, 7, 0.96) 0%, rgba(7, 7, 7, 0.78) 46%, rgba(7, 7, 7, 0.22) 100%),
+        url("Images/skin stories.jpg") center/cover no-repeat;
+}
+
+.hero-collective-title {
+    max-width: 9ch;
+}
+
+.hero-artist-card .cta-feature-action,
+.hero-collective-card .cta-feature-action {
+    position: relative;
+    z-index: 1;
+    align-self: flex-start;
+    margin-top: auto;
+    width: fit-content;
+}
+
+.hero-service-panel {
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
 }
 
-.cta-cluster-grid-artists,
-.cta-cluster-grid-services {
+.hero-panel-heading {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.15rem 0.15rem 0;
+}
+
+.hero-service-grid {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.hero-service-grid .cta-feature {
+    min-height: 14.5rem;
+}
+
+.hero-service-grid .cta-feature-title {
+    max-width: 6ch;
+    font-size: clamp(2rem, 3.6vw, 3rem);
 }
 
 .cta-feature {
@@ -449,18 +534,6 @@ img {
     color: #14110b;
     font-weight: 800;
     box-shadow: 0 14px 34px rgba(221, 179, 69, 0.25);
-}
-
-.cta-stack {
-    grid-area: stack;
-    display: grid;
-    gap: 1rem;
-    align-content: start;
-}
-
-.cta-stack .cta-feature-title {
-    max-width: 6ch;
-    font-size: clamp(2.1rem, 3.6vw, 3rem);
 }
 
 .button {
@@ -1215,8 +1288,7 @@ body.modal-open {
         max-width: 100%;
     }
 
-    .cta-cluster-grid-artists,
-    .cta-cluster-grid-services {
+    .hero-service-grid {
         grid-template-columns: 1fr;
     }
 
@@ -1282,13 +1354,23 @@ body.modal-open {
         min-height: 17rem;
     }
 
-    .cta-cluster {
-        padding: 0.85rem;
+    .hero-artist-card,
+    .hero-service-panel,
+    .hero-collective-card {
+        min-height: 0;
+        padding: 0.9rem;
         border-radius: 1.5rem;
     }
 
-    .cta-cluster-heading {
-        padding: 0.15rem 0.15rem 0.85rem;
+    .hero-card-mini-link {
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .hero-panel-heading {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.1rem 0.1rem 0;
     }
 
     .subpage-hero {
