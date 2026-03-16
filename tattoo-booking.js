@@ -4,16 +4,58 @@ if (bookingModal) {
     const openButtons = document.querySelectorAll("[data-open-booking]");
     const closeButtons = bookingModal.querySelectorAll("[data-close-booking]");
     const artistFields = bookingModal.querySelectorAll("[data-booking-artist], [data-booking-artist-secondary]");
+    const whatsappLinks = bookingModal.querySelectorAll("[data-booking-whatsapp-link]");
+    const instagramLinks = bookingModal.querySelectorAll("[data-booking-instagram-link]");
+    const whatsappNumberFields = bookingModal.querySelectorAll("[data-booking-whatsapp-number]");
     const optionCards = bookingModal.querySelectorAll("[data-booking-option]");
     const params = new URLSearchParams(window.location.search);
     const defaultArtist = "Skin Stories Tattoo Team";
-    const whatsappNumber = "250789831320";
+    const artistProfiles = {
+        "Skin Stories Tattoo Team": {
+            whatsappNumber: "250789831320",
+            whatsappDisplay: "+250 789 831 320",
+            whatsappLabel: "Open Skin Stories WhatsApp",
+            instagramUrl: "https://www.instagram.com/skinstories/",
+            instagramLabel: "Open Skin Stories Instagram"
+        },
+        "Yanky Tattoo": {
+            whatsappNumber: "250789831320",
+            whatsappDisplay: "+250 789 831 320",
+            whatsappLabel: "Open Skin Stories WhatsApp for Yanky Tattoo",
+            instagramUrl: "https://www.instagram.com/i_am_yanky_yvan?igsh=aTd4andyZXJ4ejY0",
+            instagramLabel: "Open Yanky Tattoo Instagram"
+        },
+        "Hamza Tattoo": {
+            whatsappNumber: "250781925969",
+            whatsappDisplay: "+250 781 925 969",
+            whatsappLabel: "Open Hamza Tattoo WhatsApp",
+            instagramUrl: "https://www.instagram.com/hamza.tattoo_?igsh=MXMzZThrbzAzMHY2cg==",
+            instagramLabel: "Open Hamza Tattoo Instagram"
+        }
+    };
+    let activeProfile = artistProfiles[defaultArtist];
     let activeArtist = defaultArtist;
 
     function setArtist(artistName) {
         activeArtist = artistName || defaultArtist;
+        activeProfile = artistProfiles[activeArtist] || artistProfiles[defaultArtist];
+
         artistFields.forEach((field) => {
             field.textContent = activeArtist;
+        });
+
+        whatsappLinks.forEach((link) => {
+            link.href = `https://wa.me/${activeProfile.whatsappNumber}`;
+            link.setAttribute("aria-label", activeProfile.whatsappLabel);
+        });
+
+        instagramLinks.forEach((link) => {
+            link.href = activeProfile.instagramUrl;
+            link.setAttribute("aria-label", activeProfile.instagramLabel);
+        });
+
+        whatsappNumberFields.forEach((field) => {
+            field.textContent = activeProfile.whatsappDisplay;
         });
     }
 
@@ -50,8 +92,8 @@ if (bookingModal) {
     function openWhatsApp(card, fileName) {
         const message = buildMessage(card, fileName);
         const encodedMessage = encodeURIComponent(message);
-        const appUrl = `whatsapp://send?phone=${whatsappNumber}&text=${encodedMessage}`;
-        const webUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+        const appUrl = `whatsapp://send?phone=${activeProfile.whatsappNumber}&text=${encodedMessage}`;
+        const webUrl = `https://wa.me/${activeProfile.whatsappNumber}?text=${encodedMessage}`;
         const isMobileDevice = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
         if (isMobileDevice) {
