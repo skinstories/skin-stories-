@@ -264,12 +264,72 @@ img {
 
 .cta-group {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(18rem, 22rem) minmax(0, 1fr);
-    grid-template-areas: "yanky stack hamza";
+    grid-template-columns: minmax(0, 1fr);
     align-items: stretch;
     gap: 1rem;
     margin-top: 2rem;
     max-width: 84rem;
+}
+
+.cta-cluster {
+    position: relative;
+    padding: 1rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(223, 205, 123, 0.18);
+    background:
+        linear-gradient(180deg, rgba(11, 11, 11, 0.82), rgba(6, 6, 6, 0.94)),
+        linear-gradient(145deg, rgba(223, 205, 123, 0.06), transparent 36%);
+    box-shadow: 0 26px 52px rgba(0, 0, 0, 0.34);
+    overflow: hidden;
+}
+
+.cta-cluster::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at top right, rgba(223, 205, 123, 0.14), transparent 28%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.02), transparent 44%);
+    pointer-events: none;
+}
+
+.cta-cluster-heading,
+.cta-cluster-grid {
+    position: relative;
+    z-index: 1;
+}
+
+.cta-cluster-heading {
+    display: grid;
+    gap: 0.7rem;
+    padding: 0.35rem 0.35rem 1rem;
+}
+
+.cta-cluster-kicker {
+    color: var(--gold-soft);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+}
+
+.cta-cluster-title {
+    max-width: 20ch;
+    font-family: "Antonio", sans-serif;
+    font-size: clamp(1.8rem, 4vw, 3.25rem);
+    line-height: 0.98;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.cta-cluster-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.cta-cluster-grid-artists,
+.cta-cluster-grid-services {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .cta-feature {
@@ -1152,11 +1212,12 @@ body.modal-open {
 
     .cta-group {
         grid-template-columns: 1fr;
-        grid-template-areas:
-            "yanky"
-            "hamza"
-            "stack";
         max-width: 100%;
+    }
+
+    .cta-cluster-grid-artists,
+    .cta-cluster-grid-services {
+        grid-template-columns: 1fr;
     }
 
     .service-card {
@@ -1219,6 +1280,15 @@ body.modal-open {
 
     .cta-feature {
         min-height: 17rem;
+    }
+
+    .cta-cluster {
+        padding: 0.85rem;
+        border-radius: 1.5rem;
+    }
+
+    .cta-cluster-heading {
+        padding: 0.15rem 0.15rem 0.85rem;
     }
 
     .subpage-hero {

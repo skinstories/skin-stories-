@@ -49,8 +49,24 @@ if (bookingModal) {
 
     function openWhatsApp(card, fileName) {
         const message = buildMessage(card, fileName);
-        const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-        window.open(url, "_blank", "noopener");
+        const encodedMessage = encodeURIComponent(message);
+        const appUrl = `whatsapp://send?phone=${whatsappNumber}&text=${encodedMessage}`;
+        const webUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+        const isMobileDevice = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+        if (isMobileDevice) {
+            window.location.href = appUrl;
+
+            window.setTimeout(() => {
+                if (document.visibilityState === "visible") {
+                    window.location.href = webUrl;
+                }
+            }, 900);
+
+            return;
+        }
+
+        window.open(webUrl, "_blank", "noopener");
     }
 
     function readFileAsDataUrl(file) {
@@ -110,27 +126,6 @@ if (bookingModal) {
         return true;
     }
 
-    async function shareViaSystem(card, file) {
-        const message = buildMessage(card, file.name);
-
-        if (!navigator.share || !navigator.canShare) {
-            return false;
-        }
-
-        const sharePayload = {
-            title: "Skin Stories Tattoo Booking",
-            text: message,
-            files: [file]
-        };
-
-        if (!navigator.canShare(sharePayload)) {
-            return false;
-        }
-
-        await navigator.share(sharePayload);
-        return true;
-    }
-
     async function sendTattooBooking(card, input, fileNameField, sendButton) {
         const file = input.files && input.files[0];
 
@@ -142,31 +137,15 @@ if (bookingModal) {
         fileNameField.textContent = `Selected image: ${file.name}. Preparing WhatsApp...`;
 
         try {
-            const shared = await shareViaSystem(card, file);
-
-            if (shared) {
-                fileNameField.textContent = `Selected image: ${file.name}. Shared through your device share sheet.`;
-                sendButton.disabled = false;
-                return;
-            }
-        } catch (error) {
-            if (error && error.name === "AbortError") {
-                fileNameField.textContent = `Selected image: ${file.name}. Share canceled.`;
-                sendButton.disabled = false;
-                return;
-            }
-        }
-
-        try {
             const copied = await copyImageToClipboard(file);
 
             if (copied) {
-                fileNameField.textContent = `Selected image: ${file.name}. Image copied. WhatsApp is opening with the booking text ready.`;
+                fileNameField.textContent = `Selected image: ${file.name}. Image copied. Opening WhatsApp for +250 789 831 320.`;
             } else {
-                fileNameField.textContent = `Selected image: ${file.name}. WhatsApp is opening with the booking text ready.`;
+                fileNameField.textContent = `Selected image: ${file.name}. Opening WhatsApp for +250 789 831 320.`;
             }
         } catch (error) {
-            fileNameField.textContent = `Selected image: ${file.name}. WhatsApp is opening with the booking text ready.`;
+            fileNameField.textContent = `Selected image: ${file.name}. Opening WhatsApp for +250 789 831 320.`;
         }
 
         openWhatsApp(card, file.name);
