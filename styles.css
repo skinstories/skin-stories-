@@ -1151,16 +1151,17 @@ body.modal-open {
 }
 
 .booking-options-panel-heading {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
     gap: 1rem;
     align-items: center;
 }
 
 .booking-options-summary {
-    margin-top: 1.5rem;
+    margin-top: 0;
     color: var(--muted);
     line-height: 1.7;
+    text-align: right;
 }
 
 .booking-option-list {
@@ -1403,6 +1404,29 @@ body.modal-open {
     .booking-modal__close {
         top: 0.75rem;
         right: 0.75rem;
+    }
+
+    .booking-options-panel-heading {
+        grid-template-columns: 1fr;
+        align-items: start;
+    }
+
+    .booking-options-summary {
+        text-align: left;
+    }
+
+    .booking-option-row {
+        grid-template-columns: 1fr;
+        align-items: start;
+        gap: 0.9rem;
+    }
+
+    .booking-option-row-meta {
+        gap: 0.55rem;
+    }
+
+    .booking-option-row .booking-send-button {
+        width: 100%;
     }
 
     .booking-option-actions,
