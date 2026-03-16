@@ -411,35 +411,6 @@ img {
     margin-top: auto;
 }
 
-.hero-social-link,
-.hero-instagram-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 3.6rem;
-    height: 3.6rem;
-    border-radius: 999px;
-    border: 1px solid rgba(223, 205, 123, 0.28);
-    background: rgba(10, 10, 10, 0.72);
-    color: var(--text);
-    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.28);
-}
-
-.hero-social-link:hover,
-.hero-social-link:focus-visible,
-.hero-instagram-link:hover,
-.hero-instagram-link:focus-visible {
-    background: rgba(223, 205, 123, 0.16);
-    border-color: rgba(223, 205, 123, 0.44);
-}
-
-.hero-social-link svg,
-.hero-instagram-link svg {
-    width: 1.2rem;
-    height: 1.2rem;
-    fill: currentColor;
-}
-
 .hero-service-panel {
     display: flex;
     flex-direction: column;
